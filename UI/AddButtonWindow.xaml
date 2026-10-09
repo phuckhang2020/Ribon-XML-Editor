@@ -1,0 +1,198 @@
+<Window x:Class="RibbonXmlEditor.UI.AddButtonWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Cấu hình nút Ribbon" Tag="L:target.window" Width="780" Height="850" MinWidth="680" MinHeight="680"
+        WindowStartupLocation="CenterOwner" ResizeMode="CanResize"
+        Background="{StaticResource PageBrush}" Foreground="{StaticResource TextBrush}"
+        FontFamily="Segoe UI" FontSize="13">
+    <Grid Margin="22">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <StackPanel Margin="0,0,0,16">
+            <TextBlock x:Name="WindowHeading" Text="Thêm nút Ribbon" Tag="L:target.addTitle" FontSize="22" FontWeight="SemiBold" />
+            <TextBlock x:Name="SubtitleText" Text="Chọn nơi hiển thị, macro cần chạy và nội dung người dùng sẽ thấy." Tag="L:target.addHint"
+                       Foreground="{StaticResource MutedBrush}" Margin="0,5,0,0" />
+        </StackPanel>
+
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="0,0,8,0">
+            <StackPanel>
+                <GroupBox Header="1. Vị trí hiển thị" Tag="L:section.target">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
+                            <RadioButton x:Name="ExistingTabRadio" Content="Tab có sẵn" GroupName="TargetMode"
+                                         IsChecked="True" Margin="0,0,24,0" Checked="TargetMode_Changed" Tag="L:target.existing" />
+                            <RadioButton x:Name="NewTabRadio" Content="Tạo tab mới" GroupName="TargetMode"
+                                         Checked="TargetMode_Changed" Tag="L:target.new" />
+                        </StackPanel>
+                        <Grid x:Name="ExistingTabPanel">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Text="Tab:" VerticalAlignment="Center" Margin="0,0,12,10" Tag="L:target.tab" />
+                            <ComboBox x:Name="TabCombo" Grid.Row="0" Grid.Column="1" Margin="0,0,0,10"
+                                      SelectionChanged="TabCombo_SelectionChanged" />
+                            <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Margin="0,0,0,10">
+                                <RadioButton x:Name="NewGroupRadio" Content="Tạo group mới" GroupName="GroupMode"
+                                             IsChecked="True" Checked="GroupMode_Changed" Margin="0,0,0,6" Tag="L:group.create" />
+                                <RadioButton x:Name="ExistingGroupRadio" Content="Thêm vào group hiện có"
+                                             GroupName="GroupMode" Checked="GroupMode_Changed" Tag="L:group.existing" />
+                            </StackPanel>
+                            <TextBlock x:Name="GroupChooserLabel" Grid.Row="2" Text="Group hiện có:" VerticalAlignment="Center" Margin="0,0,12,10" Tag="L:group.choose" />
+                            <ComboBox x:Name="ExistingGroupCombo" Grid.Row="2" Grid.Column="1" Margin="0,0,0,10"
+                                      SelectionChanged="ExistingGroupCombo_SelectionChanged" />
+                        </Grid>
+                        <Grid x:Name="NewTabPanel" Visibility="Collapsed" Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Text="Tên tab:" VerticalAlignment="Center" Margin="0,0,12,10" Tag="L:target.newName" />
+                            <TextBox x:Name="NewTabLabelBox" Grid.Row="0" Grid.Column="1" Margin="0,0,0,10" />
+                            <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Text="Chọn vị trí trên Ribbon"
+                                       FontWeight="SemiBold" Margin="0,2,0,8" Tag="L:target.newPosition" />
+                            <TextBlock Grid.Row="2" Text="Chèn trước tab:" VerticalAlignment="Center" Margin="0,0,12,0" Tag="L:target.insertBefore" />
+                            <ComboBox x:Name="NewTabAnchorCombo" Grid.Row="2" Grid.Column="1" />
+                        </Grid>
+                        <Grid x:Name="GroupLabelPanel" Margin="0,8,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Tên group:" VerticalAlignment="Center" Margin="0,0,12,0" Tag="L:group.name" />
+                            <TextBox x:Name="GroupLabelBox" Grid.Column="1" />
+                        </Grid>
+                        <Grid x:Name="ExistingTabPositionPanel" Margin="0,14,0,0" Visibility="Collapsed">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Vị trí trong tab:" VerticalAlignment="Top" Margin="0,4,12,0" Tag="L:target.groupPosition" />
+                            <StackPanel Grid.Column="1">
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                                    <RadioButton x:Name="PositionBeforeRadio" Content="Trước group" GroupName="AnchorPosition"
+                                                 IsChecked="True" Margin="0,0,18,0" Checked="Position_Changed" Tag="L:position.before" />
+                                    <RadioButton x:Name="PositionAfterRadio" Content="Sau group" GroupName="AnchorPosition"
+                                                 Margin="0,0,18,0" Checked="Position_Changed" Tag="L:position.after" />
+                                    <RadioButton x:Name="PositionEndRadio" Content="Cuối tab" GroupName="AnchorPosition"
+                                                 Checked="Position_Changed" Tag="L:position.end" />
+                                </StackPanel>
+                                <ComboBox x:Name="AnchorGroupCombo" Margin="0,0,0,8" />
+                                <CheckBox x:Name="AdvancedAnchorCheck" Content="Nhập idMso tùy chỉnh"
+                                          Checked="AdvancedAnchorCheck_Changed" Unchecked="AdvancedAnchorCheck_Changed"
+                                          Margin="0,0,0,7" Tag="L:position.advanced" />
+                                <TextBox x:Name="AdvancedAnchorBox" IsEnabled="False"
+                                         ToolTip="Ví dụ: GroupClipboard" />
+                            </StackPanel>
+                        </Grid>
+                        <TextBlock x:Name="CustomTabHint" Text="Tab tự tạo: group mới sẽ được thêm vào cuối tab này."
+                                   Foreground="{StaticResource MutedBrush}" TextWrapping="Wrap" Visibility="Collapsed" Margin="0,10,0,0" Tag="L:target.customTabHint" />
+                    </StackPanel>
+                </GroupBox>
+
+                <GroupBox x:Name="MacroSection" Header="2. Macro" Tag="L:section.macro">
+                    <StackPanel>
+                        <DockPanel>
+                            <Button x:Name="RefreshMacrosButton" Content="Làm mới" DockPanel.Dock="Right"
+                                    Click="RefreshMacrosButton_Click" Margin="10,0,0,0" Tag="L:common.refresh" />
+                            <ComboBox x:Name="MacroCombo" />
+                        </DockPanel>
+                        <TextBlock Text="Macro không tham số cũng dùng được; ứng dụng tự tạo callback Ribbon cần thiết."
+                                   Foreground="{StaticResource MutedBrush}" TextWrapping="Wrap" Margin="0,9,0,0" Tag="L:macro.hint" />
+                        <TextBlock x:Name="MacroErrorText" Foreground="#B42318" TextWrapping="Wrap"
+                                   Margin="0,7,0,0" Visibility="Collapsed" />
+                    </StackPanel>
+                </GroupBox>
+
+                <GroupBox x:Name="IconSection" Header="3. Biểu tượng" Tag="L:section.icon">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="150" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel>
+                            <RadioButton x:Name="OfficeIconRadio" Content="Biểu tượng Office (imageMso)"
+                                         GroupName="IconMode" IsChecked="True" Checked="IconMode_Changed" Tag="L:icon.office" />
+                            <DockPanel Margin="0,8,0,14">
+                                <Button x:Name="PickOfficeIconButton" Content="Chọn biểu tượng..." DockPanel.Dock="Left"
+                                        Click="PickOfficeIconButton_Click" Tag="L:icon.pickOffice" />
+                                <TextBlock x:Name="IconValueText" Text="Chưa chọn" Foreground="{StaticResource MutedBrush}"
+                                           TextTrimming="CharacterEllipsis" VerticalAlignment="Center" Margin="12,0,0,0" />
+                            </DockPanel>
+                            <RadioButton x:Name="CustomIconRadio" Content="Ảnh tùy chỉnh"
+                                         GroupName="IconMode" Checked="IconMode_Changed" Tag="L:icon.custom" />
+                            <DockPanel Margin="0,8,0,0">
+                                <Button x:Name="PickImageButton" Content="Chọn ảnh..." IsEnabled="False"
+                                        Click="PickImageButton_Click" Tag="L:icon.pickImage" />
+                                <TextBlock x:Name="ImagePathText" Text="PNG, JPG, BMP hoặc ICO"
+                                           Foreground="{StaticResource MutedBrush}" TextTrimming="CharacterEllipsis"
+                                           VerticalAlignment="Center" Margin="12,0,0,0" />
+                            </DockPanel>
+                        </StackPanel>
+                        <Border Grid.Column="1" Width="112" Height="112" Background="#F6F8FC"
+                                BorderBrush="{StaticResource BorderBrush}" BorderThickness="1" CornerRadius="9"
+                                HorizontalAlignment="Right" VerticalAlignment="Center" Padding="10">
+                            <Image x:Name="IconPreview" Stretch="Uniform" />
+                        </Border>
+                    </Grid>
+                </GroupBox>
+
+                <GroupBox x:Name="ButtonDetailsSection" Header="4. Nội dung và trợ giúp" Tag="L:section.content">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Text="Tên nút:" VerticalAlignment="Center" Margin="0,0,12,10" Tag="L:button.name" />
+                        <TextBox x:Name="ButtonLabelBox" Grid.Row="0" Grid.Column="1" Margin="0,0,0,10" />
+                        <TextBlock Grid.Row="1" Text="Screen tip:" VerticalAlignment="Center" Margin="0,0,12,10" Tag="L:button.screenTip" />
+                        <TextBox x:Name="ScreenTipBox" Grid.Row="1" Grid.Column="1" Margin="0,0,0,10" />
+                        <TextBlock Grid.Row="2" Text="Mô tả chi tiết:" VerticalAlignment="Top" Margin="0,8,12,0" Tag="L:button.superTip" />
+                        <TextBox x:Name="SuperTipBox" Grid.Row="2" Grid.Column="1" MinHeight="74"
+                                 AcceptsReturn="True" TextWrapping="Wrap" VerticalContentAlignment="Top"
+                                 VerticalScrollBarVisibility="Auto" />
+                        <CheckBox x:Name="LargeSizeCheck" Grid.Row="3" Grid.Column="1"
+                                  Content="Hiển thị nút ở kích thước lớn" IsChecked="True" Margin="0,12,0,0" Tag="L:button.large" />
+                    </Grid>
+                </GroupBox>
+                <GroupBox x:Name="LabelSection" Header="Nội dung chữ trong group" Tag="L:section.labels">
+                    <StackPanel>
+                        <TextBlock x:Name="LabelHintText" Text="Mỗi dòng tạo một labelControl riêng, giống các dòng hướng dẫn và ghi chú trong Ribbon."
+                                   Foreground="{StaticResource MutedBrush}" TextWrapping="Wrap" Margin="0,0,0,8" Tag="L:labels.hint" />
+                        <TextBox x:Name="LabelControlsBox" MinHeight="76" AcceptsReturn="True"
+                                 TextWrapping="Wrap" VerticalContentAlignment="Top"
+                                 VerticalScrollBarVisibility="Auto" />
+                        <CheckBox x:Name="TextOnlyGroupCheck" Content="Chỉ tạo group hướng dẫn (không thêm nút)"
+                                  Margin="0,10,0,0" Checked="TextOnlyGroupCheck_Changed"
+                                  Unchecked="TextOnlyGroupCheck_Changed" Visibility="Collapsed" Tag="L:labels.textOnly" />
+                    </StackPanel>
+                </GroupBox>
+            </StackPanel>
+        </ScrollViewer>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,16,0,0">
+            <Button Content="Hủy" IsCancel="True" Width="90" Tag="L:common.cancel" />
+            <Button x:Name="SaveButton" Content="Lưu nút" IsDefault="True" Width="110" Margin="0"
+                    Style="{StaticResource PrimaryButtonStyle}" Click="SaveButton_Click" Tag="L:common.saveButton" />
+        </StackPanel>
+    </Grid>
+</Window>

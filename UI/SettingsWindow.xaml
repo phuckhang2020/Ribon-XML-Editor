@@ -1,0 +1,37 @@
+<Window x:Class="RibbonXmlEditor.UI.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Cài đặt" Tag="L:settings.title"
+        Width="420" Height="310" MinWidth="380" MinHeight="280"
+        WindowStartupLocation="CenterOwner" ResizeMode="NoResize"
+        Background="{StaticResource PageBrush}" Foreground="{StaticResource TextBrush}"
+        FontFamily="Segoe UI" FontSize="13">
+    <Grid Margin="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <StackPanel Margin="0,0,0,18">
+            <TextBlock Text="Cài đặt" Tag="L:settings.heading" FontSize="22" FontWeight="SemiBold" />
+            <TextBlock Text="Thay đổi ngôn ngữ hiển thị của ứng dụng."
+                       Tag="L:settings.languageHint" Foreground="{StaticResource MutedBrush}"
+                       Margin="0,5,0,0" TextWrapping="Wrap" />
+        </StackPanel>
+        <Border Grid.Row="1" Background="{StaticResource SurfaceBrush}" BorderBrush="{StaticResource BorderBrush}"
+                BorderThickness="1" CornerRadius="8" Padding="16">
+            <StackPanel>
+                <TextBlock Text="Ngôn ngữ" Tag="L:settings.language" FontWeight="SemiBold" Margin="0,0,0,10" />
+                <RadioButton x:Name="VietnameseRadio" Content="Tiếng Việt" Tag="L:settings.vietnamese"
+                             GroupName="Language" Margin="0,0,0,10" />
+                <RadioButton x:Name="EnglishRadio" Content="English" Tag="L:settings.english"
+                             GroupName="Language" />
+            </StackPanel>
+        </Border>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,18,0,0">
+            <Button Content="Hủy" Tag="L:common.cancel" IsCancel="True" Width="90" />
+            <Button Content="Lưu cài đặt" Tag="L:settings.save" IsDefault="True" Width="120" Margin="0"
+                    Style="{StaticResource PrimaryButtonStyle}" Click="SaveButton_Click" />
+        </StackPanel>
+    </Grid>
+</Window>
