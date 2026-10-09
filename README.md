@@ -20,20 +20,32 @@ Khi chọn **Tạo tab mới**, đặt tên tab và chọn tab Excel đứng tr�
 
 Lịch sử thay đổi được ghi trong [CHANGELOG.md](./CHANGELOG.md).
 
-## Tải ứng dụng
+## Tải và chạy ứng dụng
 
-Tải gói Windows self-contained tại [Ribon Studio v1.0.0](https://github.com/phuckhang2020/Ribon-XML-Editor/releases/tag/v1.0.0). Giải nén `RibonStudio-v1.0.0-win-x64.zip` và chạy `RibbonXmlEditor.exe`. Ứng dụng vẫn yêu cầu Microsoft Excel desktop.
+**Bản phát hành mới nhất: Ribon Studio v1.0.0**
 
-## Yêu cầu
+- [Tải ứng dụng Windows 64-bit](https://github.com/phuckhang2020/Ribon-XML-Editor/releases/download/v1.0.0/RibonStudio-v1.0.0-win-x64.zip) (`RibonStudio-v1.0.0-win-x64.zip`)
+- [Tải SHA-256 checksum](https://github.com/phuckhang2020/Ribon-XML-Editor/releases/download/v1.0.0/RibonStudio-v1.0.0-win-x64.zip.sha256)
+- [Xem ghi chú phát hành](https://github.com/phuckhang2020/Ribon-XML-Editor/releases/tag/v1.0.0)
 
-- Windows 10/11
-- Microsoft Excel desktop đã cài đặt
-- .NET 10 Desktop Runtime (nếu chạy bản framework-dependent)
-- Bật **Trust access to the VBA project object model** trong Excel Trust Center để quét macro và tạo callback
+1. Tải file ZIP và giải nén **toàn bộ nội dung** vào một thư mục trên máy Windows 10/11 64-bit.
+2. Mở thư mục vừa giải nén và chạy `RibbonXmlEditor.exe`. Đây là bản self-contained, không cần cài riêng .NET Runtime.
+3. Microsoft Excel desktop phải được cài đặt để ứng dụng kết nối Excel, quét macro và tạo callback.
+4. Để quét macro và tạo callback VBA, bật **Trust access to the VBA project object model** trong Excel Trust Center.
 
-Workbook cần đóng trong mọi cửa sổ Excel khác khi mở/chỉnh sửa/lưu bằng ứng dụng. Sau khi lưu, mở lại workbook trong Excel để kiểm tra Ribbon.
+Có thể kiểm tra SHA-256 của file tải về bằng PowerShell:
+
+```powershell
+Get-FileHash .\RibonStudio-v1.0.0-win-x64.zip -Algorithm SHA256
+```
+
+Đối chiếu giá trị `Hash` với nội dung file `.sha256` đi kèm release.
+
+Trước khi mở, chỉnh sửa hoặc lưu workbook, hãy đóng workbook đó trong các cửa sổ Excel khác. Sau khi lưu, mở lại workbook trong Excel để xem Ribbon đã cập nhật. Tùy chỉnh Ribbon chỉ được nhúng trong workbook đã chọn.
 
 ## Build
+
+Yêu cầu môi trường phát triển: Windows và .NET 10 SDK. Excel desktop cần có mặt để chạy các tính năng tích hợp Excel COM.
 
 ```powershell
 dotnet build RibbonXmlEditor.csproj
