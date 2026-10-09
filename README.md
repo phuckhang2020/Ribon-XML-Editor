@@ -20,6 +20,10 @@ Khi chọn **Tạo tab mới**, đặt tên tab và chọn tab Excel đứng tr�
 
 Lịch sử thay đổi được ghi trong [CHANGELOG.md](./CHANGELOG.md).
 
+## Tải ứng dụng
+
+Tải gói Windows self-contained tại [Ribon Studio v1.0.0](https://github.com/phuckhang2020/Ribon-XML-Editor/releases/tag/v1.0.0). Giải nén `RibonStudio-v1.0.0-win-x64.zip` và chạy `RibbonXmlEditor.exe`. Ứng dụng vẫn yêu cầu Microsoft Excel desktop.
+
 ## Yêu cầu
 
 - Windows 10/11
